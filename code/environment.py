@@ -92,6 +92,25 @@ class BoxStackingSimulator:
             rotation_quaternion_2
         )
 
+    def create_rigid_body(self, base_position):
+        # 剛體框架
+        collision = p.createCollisionShape(p.GEOM_BOX, halfExtents=[dim / 2 for dim in self.box_size])
+        visual = p.createVisualShape(p.GEOM_BOX, halfExtents=[dim / 2 for dim in self.box_size],
+                                     rgbaColor=[0.8, 0.3, 0.3, 1])
+        rigid_body = p.createMultiBody(baseMass=1, baseCollisionShapeIndex=collision,
+                                       baseVisualShapeIndex=visual, basePosition=base_position)
+        return rigid_body
+
+    def create_soft_body_shell(self, base_position):
+        # 柔體外殼
+        soft_body = p.loadSoftBody(
+            fileName=None, basePosition=base_position, mass=0.5,
+            useNeoHookean=1, useBendingSprings=1, springElasticStiffness=40,
+            springDampingStiffness=0.3, springBendingStiffness=0.1,
+            collisionMargin=0.02, useSelfCollision=1, frictionCoeff=0.5
+        )
+        return soft_body
+
     def create_box(self, position=5):
         box_collision = p.createCollisionShape(p.GEOM_BOX, halfExtents=self.half_extents)
         box_visual = p.createVisualShape(p.GEOM_BOX, halfExtents=self.half_extents, rgbaColor=[0, 0, 1, 1])
