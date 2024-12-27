@@ -24,11 +24,11 @@ def create_box(box_size, box_pos, box_weight):
    # Adjust the dynamics properties of the box
    p.changeDynamics(
        box_id, -1,
-       ccdSweptSphereRadius=0.02,  # Radius for continuous collision detection (CCD)
+       ccdSweptSphereRadius=0.01,  # Radius for continuous collision detection (CCD)
        contactProcessingThreshold=0.0,  # Threshold for contact processing
-       lateralFriction=0.6,  # Lateral friction coefficient
-       spinningFriction=0.1,  # Spinning friction coefficient
-       rollingFriction=0.1  # Rolling friction coefficient
+       lateralFriction=1.0,  # Lateral friction coefficient
+       spinningFriction=0.2,  # Spinning friction coefficient
+       rollingFriction=0.2  # Rolling friction coefficient
    )
 
 # def create_container(container_size, degree):
@@ -90,14 +90,14 @@ def create_container(container_size):
     container_l, container_w, container_h = (half_size / 2 for half_size in container_size)
     wall_size_ = [
         (wall_thickness, container_w+wall_thickness, container_h+wall_thickness),
-        (container_l, container_w, wall_thickness),
+        # (container_l, container_w, wall_thickness),
         (container_l, container_w, wall_thickness),
         (container_l, wall_thickness, container_h),
         (container_l, wall_thickness, container_h)
     ]
     wall_position_ = [
         (-wall_thickness/2, 0, container_h),
-        (container_l, 0, -wall_thickness/2),
+        # (container_l, 0, -wall_thickness/2),
         (container_l, 0, container_h*2 + wall_thickness/2),
         (container_l, container_w + wall_thickness/2, container_h),
         (container_l, -container_w - wall_thickness / 2, container_h)
