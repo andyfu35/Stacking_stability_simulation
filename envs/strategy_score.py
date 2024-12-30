@@ -8,7 +8,7 @@ def calculate_final_score():
     - 如果有箱子倒塌，總分為 -5。
     - 如果有箱子掉落，總分為 -5。
     - 如果沒有倒塌或掉落，根據箱子的平均傾斜度計算分數。
-      每 2 度扣 1 分，滿分 10 分。
+      每 1 度扣 1 分，滿分 10 分。
 
     返回總分和詳情。
     """
@@ -60,7 +60,7 @@ def calculate_final_score():
     avg_tilt = (total_roll + total_pitch) / (2 * valid_boxes)
 
     # 根據平均傾斜度扣分
-    tilt_penalty = avg_tilt // 2  # 每 2 度扣 1 分
+    tilt_penalty = avg_tilt // 1  # 每 2 度扣 1 分
     final_score = max(10 - tilt_penalty, 0)  # 總分不低於 0
 
     return final_score, box_scores
@@ -70,7 +70,7 @@ final_score, box_scores = calculate_final_score()
 
 # 打印結果
 print(f"最終總分: {final_score}")
-print("各箱子分數:")
-for box in box_scores:
-    print(f"箱子 {box['id']} - 位置: {box['position']}")
-    print(f"  傾斜角度: Roll={box['roll']}, Pitch={box['pitch']}")
+# print("各箱子分數:")
+# for box in box_scores:
+#     print(f"箱子 {box['id']} - 位置: {box['position']}")
+#     print(f"  傾斜角度: Roll={box['roll']}, Pitch={box['pitch']}")

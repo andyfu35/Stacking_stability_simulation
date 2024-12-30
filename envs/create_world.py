@@ -7,13 +7,13 @@ from object_create import create_box, create_container
 
 
 
-angle = 0
+angle = 2
 gravity_magnitude = 9.8
 angle = np.radians(angle)
 gravity_x = gravity_magnitude * np.sin(angle)
 gravity_z = gravity_magnitude * np.cos(angle)
 
-
+print(gravity_x, 0, -gravity_z)
 
 
 p.connect(p.GUI)  # 使用 GUI 模式
@@ -23,7 +23,7 @@ p.setGravity(gravity_x, 0, -gravity_z)
 
 p.setPhysicsEngineParameter(
    fixedTimeStep=1 / 100,  # 高精度时间步长
-   numSolverIterations=150,  # 增加求解器迭代次数
+   numSolverIterations=200,  # 增加求解器迭代次数
    contactSlop=0.0001,  # 减小接触容差
    useSplitImpulse=True,
    splitImpulsePenetrationThreshold=-0.02
@@ -45,14 +45,14 @@ for y_value in range(5):
 
 
 for x in range(1):
-   for z in range(3):
+   for z in range(20):
       for y in sorted(y_list, reverse=True):
          box_pos_list.append(
             (
                # box_size[0] / 2 + 0.04 + box_size[0] * x + 0.2,
-             box_size[0] / 2 + 0.04 + box_size[0] * x + 0.4 - z * 0.02,
+             box_size[0] / 2 + 0.04 + box_size[0] * x + 0.04 + 0.001 - z * 0.002,
              y,
-             box_size[2]/2 + (box_size[2]+0.01) * z + drop_height)
+             box_size[2]/2 + (box_size[2]) * z + drop_height)
          )
 
 # for box_pos in box_pos_list:
@@ -74,10 +74,7 @@ for n in range(sim_time):
       except:
          pass
 
-from strategy_score import calculate_final_score
-calculate_final_score()
-
-
-
-
-p.disconnect()
+# from strategy_score import calculate_final_score
+# calculate_final_score()
+#
+# p.disconnect()

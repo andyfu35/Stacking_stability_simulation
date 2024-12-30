@@ -3,8 +3,8 @@ import trimesh
 import numpy as np
 
 
-def create_box(box_size, box_pos, box_weight):
-   l_box, w_box, h_box = (size / 2 * 10 for size in box_size)
+def create_box(box_size, box_pos):
+   l_box, w_box, h_box, weight = (size / 2 * 10 for size in box_size)
    x_pos, y_pos, z_pos = (box_pos * 10 for box_pos in box_pos)
    # Create the collision shape of the box
    collision_shape = p.createCollisionShape(p.GEOM_BOX, halfExtents=(l_box, w_box, h_box))
@@ -16,7 +16,7 @@ def create_box(box_size, box_pos, box_weight):
    )
    # Create the multi-body object representing the box
    box_id = p.createMultiBody(
-       baseMass=box_weight * 100,  # Set the mass of the box
+       baseMass=weight * 200,  # Set the mass of the box
        baseCollisionShapeIndex=collision_shape,
        baseVisualShapeIndex=visual_shape,
        basePosition=[x_pos, y_pos, z_pos]  # Set the position of the box
