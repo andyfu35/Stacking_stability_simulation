@@ -33,7 +33,7 @@ def create_box(box_size, box_pos):
 
 def create_wall(wall_size, wall_position):
     container_color = (0, 0, 1, 0.1)
-    p.createMultiBody(
+    wall_id = p.createMultiBody(
         baseMass=0,
         baseCollisionShapeIndex=p.createCollisionShape(
             p.GEOM_BOX,
@@ -46,23 +46,29 @@ def create_wall(wall_size, wall_position):
         ),
         basePosition=wall_position
     )
+    p.changeDynamics(
+        wall_id, -1,
+        lateralFriction=1.0,  # Lateral friction coefficient
+        spinningFriction=1.0,  # Spinning friction coefficient
+        rollingFriction=1.0  # Rolling friction coefficient
+    )
 
 def create_container(container_size):
-    wall_thickness = 0.1
+    wall_thickness = 1.0
     container_l, container_w, container_h = (half_size / 2  * 10 for half_size in container_size)
     wall_size_ = [
-        (wall_thickness, container_w+wall_thickness, container_h+wall_thickness),
-        (container_l, container_w, wall_thickness),
-        (container_l, container_w, wall_thickness),
+        (wall_thickness, container_w + wall_thickness * 2, container_h + wall_thickness * 2),
+        (container_l, container_w + wall_thickness * 2, wall_thickness),
+        (container_l, container_w + wall_thickness * 2, wall_thickness),
         (container_l, wall_thickness, container_h),
         (container_l, wall_thickness, container_h)
     ]
     wall_position_ = [
-        (-wall_thickness/2, 0, container_h),
-        (container_l, 0, -wall_thickness/2),
-        (container_l, 0, container_h*2 + wall_thickness/2),
-        (container_l, container_w + wall_thickness/2, container_h),
-        (container_l, -container_w - wall_thickness / 2, container_h)
+        (-wall_thickness, 0, container_h),
+        (container_l, 0, -wall_thickness),
+        (container_l, 0, container_h*2 + wall_thickness),
+        (container_l, container_w + wall_thickness, container_h),
+        (container_l, -container_w - wall_thickness, container_h)
     ]
     for wall in range(len(wall_size_)):
         create_wall(wall_size_[wall], wall_position_[wall])
