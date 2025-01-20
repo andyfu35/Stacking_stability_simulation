@@ -26,7 +26,7 @@ def create_box(box_size, box_pos):
        box_id, -1,
        ccdSweptSphereRadius=0.01,  # Radius for continuous collision detection (CCD)
        contactProcessingThreshold=0.0,  # Threshold for contact processing
-       lateralFriction=0.5,  # Lateral friction coefficient
+       lateralFriction=0.6,  # Lateral friction coefficient
        spinningFriction=0.2,  # Spinning friction coefficient
        rollingFriction=0.2  # Rolling friction coefficient
    )
